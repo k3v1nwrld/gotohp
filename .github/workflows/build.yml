@@ -264,8 +264,8 @@ jobs:
           wails3 tool package -name gotohp -format deb -config ./build/linux/nfpm/nfpm.yaml -out ./release
 
           # Build CLI binary and package without Wails/WebView dependencies
-          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags cli -trimpath -buildvcs=false -ldflags="-w -s" -o "bin/gotohp-cli"
-          cp bin/gotohp-cli "release/gotohp-cli_amd64"
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -tags cli -trimpath -buildvcs=false -ldflags="-w -s" -o "bin/gotohp-cli"
+          cp bin/gotohp-cli "release/gotohp-cli_arm64"
           nfpm package --packager deb --config ./build/linux/nfpm/nfpm-cli.yaml --target ./release/gotohp-cli_amd64.deb
 
           # Generate AppImage
@@ -297,7 +297,7 @@ jobs:
           path: |
             release/gotohp_amd64.deb
             release/gotohp_amd64.AppImage
-            release/gotohp-cli_amd64
+            release/gotohp-cli_arm64
             release/gotohp-cli_amd64.deb
 
       - name: Upload Linux Debug Artifact
